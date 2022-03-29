@@ -116,6 +116,8 @@ async function getLyrics(artist, songTitle, pictureMedium) {
         } else {
         searchSongs(searchTerm);
         }
+        // Clear search text
+        search.value = '';
     });
 
     // Get lyrics button click
