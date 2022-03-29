@@ -36,7 +36,11 @@ function showData(data) {
                         </div>
                         <div class="song-audio">
                             <audio controls><source src=${song.preview} type="audio/mp3">Song</audio> 
-                            <button class="btn" data-artist="${song.artist.name}" data-songtitle="${song.title}">Get Lyrics</button>
+                            <button class="btn" 
+                                data-artist="${song.artist.name}" data-songtitle="${song.title}"
+                                data-picture-medium="${song.artist.picture_medium}"
+                                >
+                                Get Lyrics</button>
                         </div>                           
                     </div>
                 </li>
@@ -69,7 +73,7 @@ async function getMoreSongs(url) {
   }
 
 // Get lyrics for song
-async function getLyrics(artist, songTitle) {
+async function getLyrics(artist, songTitle, pictureMedium) {
 
     try {
         const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
@@ -77,7 +81,11 @@ async function getLyrics(artist, songTitle) {
         const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
 
         result.innerHTML = `
-        <div class="get-lyrics">
+        <div class="lyrics-container">
+            <div class="artist">
+                <img src=${pictureMedium} />
+                <h2><strong>${artist}</strong></h2>
+            </div>
             <div class="lyrics">
                 <h2><strong>${artist}</strong> - ${songTitle}</h2>
                 <span>${lyrics}</span>
@@ -117,10 +125,8 @@ async function getLyrics(artist, songTitle) {
         if(clickedEl.tagName === 'BUTTON') {
             const artist = clickedEl.getAttribute('data-artist');
             const songTitle = clickedEl.getAttribute('data-songtitle');
-
-         
-                getLyrics(artist, songTitle);
-            
-
+            const pictureMedium= clickedEl.getAttribute('data-picture-medium');
+        
+            getLyrics(artist, songTitle, pictureMedium);
         }
     })
