@@ -31,13 +31,13 @@ function showData(data) {
                 <li>
                     <div class="container-song">
                         <div class="song-details">
-                        <img src=${song.artist.picture_medium} />
-                        <span><strong>${song.artist.name}</strong> - ${song.title}</span>
-                        <button class="btn" data-artist="${song.artist.name}" data-songtitle="${song.title}">Get Lyrics</button>
+                            <img src=${song.artist.picture_medium} />
+                            <span><strong>${song.artist.name}</strong> - ${song.title}</span>
                         </div>
-                        <div class="collaps">
-                            
-                        </div>
+                        <div class="song-audio">
+                            <audio controls><source src=${song.preview} type="audio/mp3">Song</audio> 
+                            <button class="btn" data-artist="${song.artist.name}" data-songtitle="${song.title}">Get Lyrics</button>
+                        </div>                           
                     </div>
                 </li>
                 `)
@@ -46,6 +46,7 @@ function showData(data) {
         </ul>
         `;
 
+     
         if(data.prev || data.next) {
             more.innerHTML = `
                 ${data.prev ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>` : ''}
