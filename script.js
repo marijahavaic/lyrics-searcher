@@ -1,7 +1,7 @@
 // DOM elements
 const form = document.getElementById('form');
 const search = document.getElementById('search');
-const result = document.getElementById('result');
+const result = document.getElementById('searchResult');
 const more = document.getElementById('more');
 const loading = document.getElementById('loader');
 

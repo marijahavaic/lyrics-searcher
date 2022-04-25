@@ -261,4 +261,13 @@ ul.songs li {
     border: none;
     }
     
-    
+    @media (max-width: 730px) {
+      .lyrics-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+      .lyrics-container .artist {
+        display: none;
+      }
+    }
