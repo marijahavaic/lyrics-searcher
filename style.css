@@ -198,7 +198,7 @@ ul.songs li {
 }
 
 .loader {
-    opacity: 1;
+    opacity: 0;
     margin: auto;
     position: relative;
     width: 76px;
@@ -261,7 +261,7 @@ ul.songs li {
     border: none;
     }
     
-    @media (max-width: 730px) {
+  @media (max-width: 730px) {
       header {
         height: 20px;
         background-size: auto;
@@ -285,8 +285,12 @@ ul.songs li {
       }
 
       .container {
-      margin: 15px;
+      margin: 10px;
       font-size: 14px;
+      }
+
+      .container-song {
+        margin: 0;
       }
 
       .container-song .song-audio audio{
