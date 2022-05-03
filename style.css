@@ -28,7 +28,8 @@ input:focus {
 
 header {
     background-image: url(https://images.unsplash.com/photo-1487180144351-b8472da7d491?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -42,7 +43,7 @@ header {
 }
 
 header::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -93,7 +94,8 @@ form button {
     color: #fff;
     padding: 15px;
     font-size: 15px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 ul.songs {
@@ -101,7 +103,7 @@ ul.songs {
     padding: 0;
     width: 100%;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 ul.songs li {
@@ -141,22 +143,21 @@ ul.songs li {
     width: 95%;
     border-radius: 3px;
     padding: 5px 10px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     display: flex;
     margin: 10px 0;
     font-size: 18px;
 }
 
-.container-song .song-details
-{
+.container-song .song-details {
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.container-song .song-audio
-{
+.container-song .song-audio {
     width: 50%;
     display: flex;
     align-items: center;
@@ -167,7 +168,8 @@ ul.songs li {
     width: 100px;
     border-radius: 3px;
     margin: 5px 10px 5px 0;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .lyrics-container {
@@ -178,19 +180,20 @@ ul.songs li {
 }
 
 .lyrics-container .artist {
-  width: 30%;
-  display: flex;flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .lyrics-container .lyrics {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .loader.show {
@@ -203,8 +206,8 @@ ul.songs li {
     position: relative;
     width: 76px;
     height: 100px;
-  }
-  .loader div {
+}
+.loader div {
     position: absolute;
     top: 33px;
     width: 13px;
@@ -212,106 +215,106 @@ ul.songs li {
     border-radius: 50%;
     background: rgb(45, 43, 43);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
-  }
-  .loader div:nth-child(1) {
+}
+.loader div:nth-child(1) {
     left: 8px;
     animation: loader1 0.6s infinite;
-  }
-  .loader div:nth-child(2) {
+}
+.loader div:nth-child(2) {
     left: 8px;
     animation: loader2 0.6s infinite;
-  }
-  .loader div:nth-child(3) {
+}
+.loader div:nth-child(3) {
     left: 32px;
     animation: loader2 0.6s infinite;
-  }
-  .loader div:nth-child(4) {
+}
+.loader div:nth-child(4) {
     left: 56px;
     animation: loader3 0.6s infinite;
-  }
-  @keyframes loader1 {
+}
+@keyframes loader1 {
     0% {
-      transform: scale(0);
+        transform: scale(0);
     }
     100% {
-      transform: scale(1);
+        transform: scale(1);
     }
-  }
-  @keyframes loader3 {
+}
+@keyframes loader3 {
     0% {
-      transform: scale(1);
+        transform: scale(1);
     }
     100% {
-      transform: scale(0);
+        transform: scale(0);
     }
-  }
-  @keyframes loader2 {
+}
+@keyframes loader2 {
     0% {
-      transform: translate(0, 0);
+        transform: translate(0, 0);
     }
     100% {
-      transform: translate(24px, 0);
+        transform: translate(24px, 0);
     }
-  }
+}
 
-  audio {
+audio {
     width: 500px;
     height: 45px;
     margin: 5px 10px 5px 0;
     border: none;
-    }
-    
-  @media (max-width: 730px) {
-      header {
+}
+
+@media (max-width: 730px) {
+    header {
         height: 20px;
         background-size: auto;
-      }
+    }
 
-     header h1 {
+    header h1 {
         font-size: 2.5rem;
-      }
+    }
 
-      form {
+    form {
         width: 300px;
-      }
+    }
 
-      form input {
+    form input {
         font-size: 14px;
-      }
+    }
 
-      form button {
+    form button {
         font-size: 14px;
         padding: 13px;
-      }
+    }
 
-      .container {
-      margin: 10px;
-      font-size: 14px;
-      }
+    .container {
+        margin: 10px;
+        font-size: 14px;
+    }
 
-      .container-song {
+    .container-song {
         margin: 0;
-      }
+    }
 
-      .container-song .song-audio audio{
+    .container-song .song-audio audio {
         display: none;
-      }
+    }
 
-      .container-song .song-details{
+    .container-song .song-details {
         width: 70%;
         margin-right: 5px;
-      }
+    }
 
-      .container-song .song-audio{
+    .container-song .song-audio {
         width: 30%;
-      }
+    }
 
-      .lyrics-container {
+    .lyrics-container {
         display: grid;
         grid-template-columns: 1fr;
         justify-items: center;
-      }
-      .lyrics-container .artist {
-        display: none;
-      }
     }
+    .lyrics-container .artist {
+        display: none;
+    }
+}
