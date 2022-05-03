@@ -1,19 +1,18 @@
 // DOM elements
-const form = document.getElementById('form');
-const search = document.getElementById('search');
-const result = document.getElementById('searchResult');
-const more = document.getElementById('more');
-const loading = document.getElementById('loader');
+const form = document.getElementById("form");
+const search = document.getElementById("search");
+const result = document.getElementById("searchResult");
+const more = document.getElementById("more");
+const loading = document.getElementById("loader");
 
-
-const apiURL = 'https://api.lyrics.ovh';
+const apiURL = "https://api.lyrics.ovh";
 
 // Search song or artist
 async function searchSongs(term) {
-    // Remove list of songs and add loader   
+    // Remove list of songs and add loader
     result.innerHTML = `<div class="loader show" id="loader"><div></div><div></div><div></div><div></div></div>`;
-    more.innerHTML = '';
-    
+    more.innerHTML = "";
+
     const res = await fetch(`${apiURL}/suggest/${term}`);
     const data = await res.json();
 
@@ -22,16 +21,12 @@ async function searchSongs(term) {
 
 // Show song and artist in DOM
 function showData(data) {
-    loading.classList.add('show');
-
-    // Show loader
-    setTimeout(() => {
-        loading.classList.remove('show');
-
-        result.innerHTML = `
+    result.innerHTML = `
         <ul class="songs">
-            ${data.data.map(song =>
-            `
+            ${data.data
+                .map(
+                    (song) =>
+                        `
                 <li>
                     <div class="container-song">
                         <div class="song-details">
@@ -48,102 +43,103 @@ function showData(data) {
                         </div>                           
                     </div>
                 </li>
-                `)
-                .join('')
-            }
+                `
+                )
+                .join("")}
         </ul>
         `;
-     
-        if (data.prev || data.next) {
-            more.innerHTML = `
-                ${data.prev ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>` : ''}
-                ${data.next ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>` : ''}
+
+    if (data.prev || data.next) {
+        more.innerHTML = `
+                ${
+                    data.prev
+                        ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>`
+                        : ""
+                }
+                ${
+                    data.next
+                        ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>`
+                        : ""
+                }
             `;
-        } else {
-            more.innerHTML = '';
-        };
-
-    }, 1000);
+    } else {
+        more.innerHTML = "";
+    }
 }
-
 
 // Get more songs prev and next using Heroku
 async function getMoreSongs(url) {
     const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
     const data = await res.json();
-  
+
     showData(data);
-  }
+}
 
 // Get lyrics for song
 async function getLyrics(artist, songTitle, pictureMedium) {
-
-    // Remove list of songs and add loader   
+    // Remove list of songs and add loader
     result.innerHTML = `<div class="loader show" id="loader"><div></div><div></div><div></div><div></div></div>`;
-    more.innerHTML = '';
-    
+    more.innerHTML = "";
     // Fetch the lyrics
-    try {
-        const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
+
+    const controller = new AbortController();
+    const id = setTimeout(() => {
+        result.innerHTML = `<h3 class="centered">Request took too long.</h3>`;
+        controller.abort();
+    }, 5000);
+    const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`, {
+        signal: controller.signal,
+    });
+    clearTimeout(id);
+
+    if (res.ok) {
         const data = await res.json();
-        const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
-        
-        // Show content and remove loader
-        setTimeout(() => {
-            loading.classList.remove('show');
-
-            result.innerHTML = `
-            <div class="lyrics-container">
-                <div class="artist">
-                    <img src=${pictureMedium} />
-                    <h2><strong>${artist}</strong></h2>
-                </div>
-                <div class="lyrics">
-                    <h2><strong>${artist}</strong> - ${songTitle}</h2>
-                    <span>${lyrics}</span>
-                <div>
-            </div>
-            `;
-
-            more.innerHTML = '';
-        }, 2000);
-    }
-    catch (err) {
-        console.error(err);
-        // Show loader
-        setTimeout(() => {
-            result.innerHTML = `<h3 class="centered">Sorry, we don't have this one!</h3>`;
-            more.innerHTML = '';
-        }, 2000);
+        const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
+        result.innerHTML = `
+                    <div class="lyrics-container">
+                        <div class="artist">
+                            <img src=${pictureMedium} />
+                            <h2><strong>${artist}</strong></h2>
+                        </div>
+                        <div class="lyrics">
+                            <h2><strong>${artist}</strong> - ${songTitle}</h2>
+                            <span>${lyrics}</span>
+                        <div>
+                    </div>
+                    `;
+    } else if (res.status == 404) {
+        result.innerHTML = `<h3 class="centered">Sorry, we don't have this one!</h3>`;
+    } else {
+        result.innerHTML = `<h3 class="centered">Something went wrong :(</h3>`;
     }
 }
 
 // Event listeners
 
-    // Search song by artist or name
-    form.addEventListener('submit', e => {
-        e.preventDefault();
+// Search song by artist or name
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-        const searchTerm = search.value.trim();
+    const searchTerm = search.value.trim();
 
-        if(!searchTerm) {
-            alert ('Please type in a search term');
-        } else {
+    if (!searchTerm) {
+        alert("Please type in a search term");
+    } else {
         searchSongs(searchTerm);
-        }
-        // Clear search text
-        search.value = '';
-    });
+    }
+    // Clear search text
+    search.value = "";
+});
 
-    // Get lyrics button click
-    result.addEventListener('click', e => {
-        const clickedEl = e.target;
+// Get lyrics button click
+result.addEventListener("click", (e) => {
+    const clickedEl = e.target;
 
-        if(clickedEl.tagName === 'BUTTON') {
-            const artist = clickedEl.getAttribute('data-artist');
-            const songTitle = clickedEl.getAttribute('data-songtitle');
-            const pictureMedium= clickedEl.getAttribute('data-picture-medium');
-            
-                getLyrics(artist, songTitle, pictureMedium);
-        }
-    })
+    if (clickedEl.tagName === "BUTTON") {
+        const artist = clickedEl.getAttribute("data-artist");
+        const songTitle = clickedEl.getAttribute("data-songtitle");
+        const pictureMedium = clickedEl.getAttribute("data-picture-medium");
+
+        getLyrics(artist, songTitle, pictureMedium);
+    }
+});
