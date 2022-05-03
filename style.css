@@ -57,6 +57,7 @@ header * {
 
 header h1 {
     margin: 0 0 30px;
+    font-size: 4rem;
 }
 
 form {
@@ -77,7 +78,7 @@ form button {
     position: absolute;
     top: 2px;
     right: 2px;
-    background-color: #e056fd;
+    background-color: #8d56fd;
     border: 0;
     border-radius: 50px;
     color: #fff;
@@ -261,6 +262,46 @@ ul.songs li {
     }
     
     @media (max-width: 730px) {
+      header {
+        height: 20px;
+        background-size: auto;
+      }
+
+     header h1 {
+        font-size: 2.5rem;
+      }
+
+      form {
+        width: 300px;
+      }
+
+      form input {
+        font-size: 14px;
+      }
+
+      form button {
+        font-size: 14px;
+        padding: 13px;
+      }
+
+      .container {
+      margin: 15px;
+      font-size: 14px;
+      }
+
+      .container-song .song-audio audio{
+        display: none;
+      }
+
+      .container-song .song-details{
+        width: 70%;
+        margin-right: 5px;
+      }
+
+      .container-song .song-audio{
+        width: 30%;
+      }
+
       .lyrics-container {
         display: grid;
         grid-template-columns: 1fr;
