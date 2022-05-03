@@ -10,6 +10,10 @@ const apiURL = 'https://api.lyrics.ovh';
 
 // Search song or artist
 async function searchSongs(term) {
+    // Remove list of songs and add loader   
+    result.innerHTML = `<div class="loader show" id="loader"><div></div><div></div><div></div><div></div></div>`;
+    more.innerHTML = '';
+    
     const res = await fetch(`${apiURL}/suggest/${term}`);
     const data = await res.json();
 
@@ -26,8 +30,8 @@ function showData(data) {
 
         result.innerHTML = `
         <ul class="songs">
-            ${data.data.map(song => 
-                `
+            ${data.data.map(song =>
+            `
                 <li>
                     <div class="container-song">
                         <div class="song-details">
@@ -46,21 +50,20 @@ function showData(data) {
                 </li>
                 `)
                 .join('')
-        }
+            }
         </ul>
         `;
-
      
-        if(data.prev || data.next) {
+        if (data.prev || data.next) {
             more.innerHTML = `
                 ${data.prev ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>` : ''}
                 ${data.next ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>` : ''}
             `;
         } else {
             more.innerHTML = '';
-        }
-    }, 1000)
+        };
 
+    }, 1000);
 }
 
 
@@ -75,33 +78,45 @@ async function getMoreSongs(url) {
 // Get lyrics for song
 async function getLyrics(artist, songTitle, pictureMedium) {
 
+    // Remove list of songs and add loader   
+    result.innerHTML = `<div class="loader show" id="loader"><div></div><div></div><div></div><div></div></div>`;
+    more.innerHTML = '';
+    
+    // Fetch the lyrics
     try {
         const res = await fetch(`${apiURL}/v1/${artist}/${songTitle}`);
         const data = await res.json();
         const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+        
+        // Show content and remove loader
+        setTimeout(() => {
+            loading.classList.remove('show');
 
-        result.innerHTML = `
-        <div class="lyrics-container">
-            <div class="artist">
-                <img src=${pictureMedium} />
-                <h2><strong>${artist}</strong></h2>
+            result.innerHTML = `
+            <div class="lyrics-container">
+                <div class="artist">
+                    <img src=${pictureMedium} />
+                    <h2><strong>${artist}</strong></h2>
+                </div>
+                <div class="lyrics">
+                    <h2><strong>${artist}</strong> - ${songTitle}</h2>
+                    <span>${lyrics}</span>
+                <div>
             </div>
-            <div class="lyrics">
-                <h2><strong>${artist}</strong> - ${songTitle}</h2>
-                <span>${lyrics}</span>
-            <div>
-        </div>
-        `;
-    
-        more.innerHTML = '';
+            `;
+
+            more.innerHTML = '';
+        }, 2000);
     }
     catch (err) {
         console.error(err);
-        result.innerHTML = `<h3 class="centered">Sorry, we don't have this one!</h3>`;
-        more.innerHTML = '';
-    } 
+        // Show loader
+        setTimeout(() => {
+            result.innerHTML = `<h3 class="centered">Sorry, we don't have this one!</h3>`;
+            more.innerHTML = '';
+        }, 2000);
+    }
 }
-
 
 // Event listeners
 
@@ -128,7 +143,7 @@ async function getLyrics(artist, songTitle, pictureMedium) {
             const artist = clickedEl.getAttribute('data-artist');
             const songTitle = clickedEl.getAttribute('data-songtitle');
             const pictureMedium= clickedEl.getAttribute('data-picture-medium');
-        
-            getLyrics(artist, songTitle, pictureMedium);
+            
+                getLyrics(artist, songTitle, pictureMedium);
         }
     })

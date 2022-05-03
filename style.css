@@ -198,11 +198,10 @@ ul.songs li {
 
 .loader {
     opacity: 0;
-    display: flex;
+    margin: auto;
     position: relative;
-    width: 80px;
-    height: 80px;
-    left: 46%;
+    width: 50px;
+    height: 50px;
   }
   .loader div {
     position: absolute;
@@ -210,7 +209,7 @@ ul.songs li {
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #000;
+    background: rgb(45, 43, 43);
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .loader div:nth-child(1) {
