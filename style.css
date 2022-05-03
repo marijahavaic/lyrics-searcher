@@ -198,11 +198,11 @@ ul.songs li {
 }
 
 .loader {
-    opacity: 0;
+    opacity: 1;
     margin: auto;
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 76px;
+    height: 100px;
   }
   .loader div {
     position: absolute;
